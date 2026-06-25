@@ -13,3 +13,22 @@ sudo cp /usr/local/share/ca-certificates/sophos-ca-cert.crt /etc/docker/certs.d/
 
 
 tempo-cli migrate config --mode=monolithic old-config.yaml > new-config.yaml
+
+
+YAML
+exporters:
+  # 1. Replace the old 'loki:' block with this native OTLP HTTP exporter
+  otlphttp/loki:
+    endpoint: "http://loki:3100/otlp"  # Assumes your Loki container service name is 'loki'
+    tls:
+      insecure: true
+
+# ... your receivers and processors stay the same ...
+
+service:
+  pipelines:
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      # 2. Change [loki] to match the new exporter name here
+      exporters: [otlphttp/loki]
