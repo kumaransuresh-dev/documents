@@ -1,0 +1,12 @@
+Step 1: 
+Create the Docker Certificate DirectoryDocker requires registry certificates to be placed in a folder matching the registry's hostname.
+Open your terminal.Run the following command to create the required directory structure for Docker Hub:
+--
+sudo mkdir -p /etc/docker/certs.d/registry-1.docker.io/
+--
+
+Step 2: 
+Copy the Sophos CA CertificateYou need to copy your Sophos .crt certificate directly into that newly created Docker folder.
+--
+sudo cp /usr/local/share/ca-certificates/sophos_ssl.crt /etc/docker/certs.d/registry-1.docker.io/ca.crt
+--
