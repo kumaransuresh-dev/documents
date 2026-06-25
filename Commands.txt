@@ -10,3 +10,6 @@ Copy the Sophos CA CertificateYou need to copy your Sophos .crt certificate dire
 --
 sudo cp /usr/local/share/ca-certificates/sophos-ca-cert.crt /etc/docker/certs.d/registry-1.docker.io/ca.crt
 --
+
+
+tempo-cli migrate config --mode=monolithic old-config.yaml > new-config.yaml
