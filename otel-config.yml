@@ -1,0 +1,41 @@
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+  zpages:
+    endpoint: 0.0.0.0:55679
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+
+exporters:
+  otlp/tempo:
+    endpoint: "http://10.1.9.200:3200"
+    tls:
+      insecure: true
+  loki:
+    endpoint: "http://10.1.9.200:3100/loki/api/v1/push"
+	tls:
+      insecure: true
+
+service:
+  extensions: [health_check, zpages]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp/tempo]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [loki]
+  telemetry:
+    logs:
+      level: "info"
