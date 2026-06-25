@@ -8,5 +8,5 @@ sudo mkdir -p /etc/docker/certs.d/registry-1.docker.io/
 Step 2: 
 Copy the Sophos CA CertificateYou need to copy your Sophos .crt certificate directly into that newly created Docker folder.
 --
-sudo cp /usr/local/share/ca-certificates/sophos_ssl.crt /etc/docker/certs.d/registry-1.docker.io/ca.crt
+sudo cp /usr/local/share/ca-certificates/sophos-ca-cert.crt /etc/docker/certs.d/registry-1.docker.io/ca.crt
 --
